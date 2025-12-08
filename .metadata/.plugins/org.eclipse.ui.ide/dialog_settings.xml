@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+		<item value="C:\NXP\MC_DevKits\MCSPTE1AK144\sw"/>
+		<item value="C:\NXP\MC_DevKits\MCSPTE1AK144\sw\MCSPTE1AK144_BLDC_6Step"/>
+	</list>
+</section>

@@ -1,0 +1,26 @@
+FreeMaster_S32xx/src_common/freemaster_appcmd.o: \
+ C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_common/freemaster_appcmd.c \
+ C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_platforms/S32xx/freemaster.h \
+ C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_common/freemaster_defcfg.h \
+ C:/NXP/MC_DevKits/MCSPTE1AK144/sw/MCSPTE1AK144_BLDC_6Step/include/freemaster_cfg.h \
+ C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_common/freemaster_tsa.h \
+ C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_common/freemaster_defcfg.h \
+ C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_common/freemaster_private.h \
+ C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_platforms/S32xx/freemaster_S32xx.h \
+ C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_common/freemaster_protocol.h
+
+C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_platforms/S32xx/freemaster.h:
+
+C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_common/freemaster_defcfg.h:
+
+C:/NXP/MC_DevKits/MCSPTE1AK144/sw/MCSPTE1AK144_BLDC_6Step/include/freemaster_cfg.h:
+
+C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_common/freemaster_tsa.h:
+
+C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_common/freemaster_defcfg.h:
+
+C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_common/freemaster_private.h:
+
+C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_platforms/S32xx/freemaster_S32xx.h:
+
+C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_common/freemaster_protocol.h:
