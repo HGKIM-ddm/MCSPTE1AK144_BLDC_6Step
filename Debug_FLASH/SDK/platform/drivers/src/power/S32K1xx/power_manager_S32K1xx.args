@@ -18,7 +18,7 @@
 -I"C:/NXP/MC_DevKits/MCSPTE1AK144/sw/MCSPTE1AK144_BLDC_6Step/Sources/Config"
 -I"C:/NXP/MC_DevKits/MCSPTE1AK144/sw/MCSPTE1AK144_BLDC_6Step/Sources/GD3000"
 -I"C:/NXP/MC_DevKits/MCSPTE1AK144/sw/MCSPTE1AK144_BLDC_6Step/Sources/Peripherals"
--I"C:/NXP/AMMCLIB/S32K14x_AMMCLIB_v1.1.33/include"
+-I"C:/NXP/AMMCLIB/S32K14x_AMMCLIB_v1.1.34/include"
 -I"C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_common"
 -I"C:/NXP/S32DS_ARM_v2.2/S32DS/software/FreeMASTER_Serial_Communication_Driver_V2_0/src_platforms/S32xx"
 -O3

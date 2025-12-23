@@ -33,7 +33,7 @@
   * HALL_SENSOR  1 		Sensorbased operation, motor position/speed is obtained by the Hall sensor
   *
   ******************************************************************************/
-#define HALL_SENSOR 					0
+#define HALL_SENSOR 					1
 
 /******************************************************************************
 | Defines and macros
@@ -124,7 +124,7 @@ typedef struct {
 	uint8_t 	InC;
 	uint8_t 	InABC;
 	uint8_t 	Sector;
-	uint16_t 	Period[6];
+	uint16_t 	Period[6]; //¼¾¼­ È¦ period
     uint16_t 	Ftm2HallCnt;
 
 }tSensorHall;

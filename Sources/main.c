@@ -178,7 +178,7 @@ int main(void)
 
     /* Set default current measurement bias offset
      * (actual offset will measured in the Calibration state function) */
-	ADCResults.DCBIOffset = (I_MAX/2.0F);
+	ADCResults.DCBIOffset = (I_MAX/2.0F); //offset 중앙값 초기화
 	ADCResults.DCBVVoltage = 12.0F;
 
 	// Application starts by FTM3 initialization trigger
@@ -329,7 +329,7 @@ void TPP_InitializeOutputs(void)
 * Description:  PORTE Interrupt Service Routine to detect MC34GD3000 fault
 *
 *******************************************************************************/
-void PORTE_IRQHandler(void)
+void PORTE_IRQHandler(void) //drv ic
 {
 	if (PINS_DRV_GetPinIntSel(PORTE, 10u) && gd3000Status.B.gd3000InitDone)
 	{
@@ -393,7 +393,7 @@ void PDB1_IRQHandler(void)
 * 				and time between two consecutive commutations is measured by FlexTimer2.
 *
 *******************************************************************************/
-void FTM2_Callback()
+void FTM2_Callback() //hallsenseor period carculate
 {
 	// FTM2 XOR visualization in FreeMASTER
 	ftm2Ch1XorSignal ^= 1;
@@ -428,7 +428,7 @@ void FTM2_Callback()
 * 				and time between two consecutive commutations is measured by FlexTimer0.
 *
 *******************************************************************************/
-void FTM0_Ovf_Reload_IRQHandler()
+void FTM0_Ovf_Reload_IRQHandler() //zc period
 {
 	ftm_mod_old = FTM_DRV_GetMod(FTM0);
 
@@ -630,13 +630,13 @@ void LPIT0_Ch0_IRQHandler()
 	#endif
 
 
-    if(driveStatus.B.CloseLoop == 1)
+    if(driveStatus.B.CloseLoop == 1) // Motor Run
 	{
 	    // Actual rotor speed is calculated based on ZC period or period measured by FTM2 Input Capture mode
-	    actualSpeed = MLIB_Mul(MLIB_ConvertPU_FLTF32(MLIB_DivSat_F32(SPEED_SCALE_CONST, period6ZC)), N_MAX);
+	    actualSpeed = MLIB_Mul(MLIB_ConvertPU_FLTF32(MLIB_DivSat_F32(SPEED_SCALE_CONST, period6ZC)), N_MAX); //rpm 계산
 
 		torqueErr = MLIB_Sub(I_DCB_LIMIT, torque_filt);
-	    currentPIOut = GFLIB_ControllerPIpAW(torqueErr, &currentPIPrms);
+	    currentPIOut = GFLIB_ControllerPIpAW(torqueErr, &currentPIPrms); //현재 전류가 한계치 넘지 않도록
 
 	    /* Speed control */
 
@@ -648,21 +648,21 @@ void LPIT0_Ch0_IRQHandler()
 	    if(requiredSpeed < mcat_NMin)
 	    	requiredSpeed = mcat_NMin;
 
-	    requiredSpeedRamp = GFLIB_Ramp(requiredSpeed, &speedRampPrms);
+	    requiredSpeedRamp = GFLIB_Ramp(requiredSpeed, &speedRampPrms); //목표 속도까지 부드럽게 가속
 	    speedErr = MLIB_Sub(requiredSpeedRamp, actualSpeed);
-	    speedPIOut = GFLIB_ControllerPIpAW(speedErr, &speedPIPrms);
+	    speedPIOut = GFLIB_ControllerPIpAW(speedErr, &speedPIPrms); // 목표 속도와 현재 속도 오차를 줄임
 
-	    if(currentPIOut >= speedPIOut)
+	    if(currentPIOut >= speedPIOut) // 허용 한계치가 낮을 수록 실제 값이 높다. 실제 속도 > 전류 인 상황
 	    {
-	    	/* If max torque not achieved, use speed PI output */
-	        currentPIPrms.fltIntegPartK_1 = speedPIOut;
-	        currentPIPrms.fltInK_1 = 0;
+	    	/* If max torque not achieved, use speed PI output */ //보통 속도 제어
+	        currentPIPrms.fltIntegPartK_1 = speedPIOut; //에러값 출력값으로 덮어 쓰기(Anti-Windup)
+	        currentPIPrms.fltInK_1 = 0; // 직전 오차 값 초기화
 	        /* PWM duty cycle update <- speed PI */
 	        duty_cycle = speedPIOut;
 
 	        driveStatus.B.CurrentLimiting = 0;
 	    }
-	    else
+	    else // 속도 < 전류
 	    {
 	    	/* Limit speed PI output by current PI if max. torque achieved */
 	        speedPIPrms.fltIntegPartK_1 = currentPIOut;
@@ -670,7 +670,7 @@ void LPIT0_Ch0_IRQHandler()
 	        /* PWM duty cycle update <- current PI */
         	duty_cycle = currentPIOut;
 
-	        driveStatus.B.CurrentLimiting = 1;
+	        driveStatus.B.CurrentLimiting = 1; // 전류 과부화 플래그
 	    }
 
         // Update PWM duty cycle
@@ -698,7 +698,7 @@ void LPIT0_Ch0_IRQHandler()
      * to measure DC bus voltage and Back EMF voltage
      * towards the end of the active PWM pulse
      */
-    pdb_delay = (uint16_t)(MLIB_Mul(MLIB_Div(duty_cycle, 100.0F), PDB_DELAY_MAX));
+    pdb_delay = (uint16_t)(MLIB_Mul(MLIB_Div(duty_cycle, 100.0F), PDB_DELAY_MAX)); // pdb delay
 
     // Saturate, if pdb_delay is lower than PDB_DELAY_MIN
     if(pdb_delay < PDB_DELAY_MIN)
@@ -735,12 +735,12 @@ void AppInit(void)
 
     // Init parameters for DC bus current offset calibration
     calibTimer 				= CALIB_TIMER;
-    ADCResults.DCBIOffset 	= (I_MAX/2.0F);
+    ADCResults.DCBIOffset 	= (I_MAX/2.0F); //중간값
     Idcb_calib.fltAcc 		= (I_MAX/2.0F);
 
     // Init parameters for Speed control
     actualSpeed 			= 0.0F;
-	advanceAngle 			= ADVANCE_ANGLE;
+	advanceAngle 			= ADVANCE_ANGLE; // 진각 초기화
 
     // Disable all PWMs
     ACTUATE_DisableOutput(HW_INPUT_TRIG1);
@@ -779,7 +779,7 @@ void AppStop(void)
 
 #else
 	// Application can be turn on only if rotor stops
-	if((appSwitchState == 1) && (driveStatus.B.Freewheeling == 0))
+	if((appSwitchState == 1) && (driveStatus.B.Freewheeling == 0)) //모터가 완전히 멈췄을 때
 	{
 		// Enable actuator
 		ACTUATE_EnableOutput(HW_INPUT_TRIG1);
@@ -828,10 +828,10 @@ void AppStopToAlignment(void)
 	driveStatus.B.NewZC = 0;
 
     alignmentTimer = mcat_alignDuration;
-    duty_cycle = MLIB_Mul(MLIB_Div(mcat_alignVoltage, U_PH_NOM), 100.0F);
+    duty_cycle = MLIB_Mul(MLIB_Div(mcat_alignVoltage, U_PH_NOM), 100.0F); //전압 비교해서  duty 설정
 
     // Update PWM duty cycle
-    ACTUATE_SetDutycycle(duty_cycle, HW_INPUT_TRIG1);
+    ACTUATE_SetDutycycle(duty_cycle, HW_INPUT_TRIG1); //pwm duty 업데이트
     /* Apply PWM settings for motor alignment */
     ACTUATE_SetPwmMask(ui8FTM3OutmaskVal[0][6], ui16FTM3SwOctrlVal[0][6], HW_INPUT_TRIG1);
 
@@ -869,7 +869,7 @@ void AppAlignmentToStart(void)
 
 	/* Prepare PWM settings for initial commutation sector */
 	ACTUATE_SetPwmMask(ui8FTM3OutmaskVal[rotationDir][NextCmtSector],
-					   ui16FTM3SwOctrlVal[rotationDir][NextCmtSector], HW_INPUT_TRIG0);
+					   ui16FTM3SwOctrlVal[rotationDir][NextCmtSector], HW_INPUT_TRIG0); //PWM 레지스터 업데이트
 
 	// Open loop startup is ignored in Sensorbased mode
 	#if (!HALL_SENSOR)
@@ -880,17 +880,17 @@ void AppAlignmentToStart(void)
 		// Reset FTM0 counter
 		FTM0->CNT = 0;
 		// Apply STARTUP_CMT_PERIOD to MODULO
-		FTM_DRV_SetModuloCounterValue(INST_FLEXTIMER_MC0, STARTUP_CMT_PER, false);
+		FTM_DRV_SetModuloCounterValue(INST_FLEXTIMER_MC0, STARTUP_CMT_PER, false); //Commutation 주기 설정
 		// Start FTM0 counter
 		FTM_DRV_CounterStart(INST_FLEXTIMER_MC0);
 
 		NextCmtSector++;
 
-		NextCmtPeriod = MLIB_Mul_F16(NextCmtPeriod, FRAC16(mcat_startCmtAcceler));
+		NextCmtPeriod = MLIB_Mul_F16(NextCmtPeriod, FRAC16(mcat_startCmtAcceler)); //가속
 
 		/* Prepare PWM settings for the next commutation sector */
 		ACTUATE_SetPwmMask(ui8FTM3OutmaskVal[rotationDir][NextCmtSector],
-					   ui16FTM3SwOctrlVal[rotationDir][NextCmtSector], HW_INPUT_TRIG0);
+					   ui16FTM3SwOctrlVal[rotationDir][NextCmtSector], HW_INPUT_TRIG0); //다음 섹터 준비
 	#endif
 
     appState = APP_START;
@@ -940,16 +940,16 @@ void AppStartToRun(void)
 {
 	uint8_t i;
 
-    /* Speed PI controller initialization */
-    speedPIPrms.fltInK_1 = 0;
-    speedPIPrms.fltIntegPartK_1 = duty_cycle;
+    /* Speed PI controller initialization */ //PI 제어기 초기화
+    speedPIPrms.fltInK_1 = 0; //오차 초기화
+    speedPIPrms.fltIntegPartK_1 = duty_cycle; //마지막 dutycycle을 적분값으로 초기화
 
     /* Current PI controller initialization */
     currentPIPrms.fltInK_1 = 0;
-    currentPIPrms.fltIntegPartK_1 = speedPIPrms.fltIntegPartK_1;
+    currentPIPrms.fltIntegPartK_1 = speedPIPrms.fltIntegPartK_1; //속도 제어루프와 같게
 
     /* Speed ramp initialization */
-    speedRampPrms.fltState = mcat_NMin;
+    speedRampPrms.fltState = mcat_NMin; //목표속도를 개루프를 마치는 최소 속도로
 
     appState = APP_RUN;
     stallCheckCounter = 0;
@@ -968,15 +968,15 @@ void AppStartToRun(void)
 		}
 		actualPeriodZC = NextCmtPeriod;
 
-		driveStatus.B.Sensorless = 1;
+		driveStatus.B.Sensorless = 1; //센서리스 플래그
 	#endif
 
     // Reset FTM2 counter
 	FTM2->CNT = 0;
     // Clear FTM counter overflow flag
-	FTM2->SC &= (~FTM_SC_TOF_MASK);
+	FTM2->SC &= (~FTM_SC_TOF_MASK); // 오버플로우 플래그 초기화
 
-    driveStatus.B.CloseLoop = 1;
+    driveStatus.B.CloseLoop = 1; // 폐루프 플래그 on
 }
 
 /*******************************************************************************

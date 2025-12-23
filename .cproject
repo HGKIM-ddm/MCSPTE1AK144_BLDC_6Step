@@ -48,7 +48,7 @@
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Sources/Config&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Sources/GD3000&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${ProjDirPath}/Sources/Peripherals&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;C:\NXP\AMMCLIB\S32K14x_AMMCLIB_v1.1.33\include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\NXP\AMMCLIB\S32K14x_AMMCLIB_v1.1.34\include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${FREEMASTER_S32XX_2.0.0_PATH}/src_common&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${FREEMASTER_S32XX_2.0.0_PATH}/src_platforms/S32xx&quot;"/>
 								</option>
@@ -108,7 +108,7 @@
 									<listOptionValue builtIn="false" value=":S32K14x_AMMCLIB.a"/>
 								</option>
 								<option id="gnu.c.link.option.paths.1334709916" name="Library search path (-L)" superClass="gnu.c.link.option.paths" useByScannerDiscovery="false" valueType="libPaths">
-									<listOptionValue builtIn="false" value="&quot;C:\NXP\AMMCLIB\S32K14x_AMMCLIB_v1.1.33\lib\s32ds_arm32&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;C:\NXP\AMMCLIB\S32K14x_AMMCLIB_v1.1.34\lib\s32ds_arm32&quot;"/>
 								</option>
 								<option id="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.c.linker.option.target.instructionset.1972198509" name="Instruction set" superClass="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.c.linker.option.target.instructionset" useByScannerDiscovery="false" value="com.nxp.s32ds.cle.arm.mbs.arm32.bare.tool.c.linker.option.target.instructionset.thumb" valueType="enumerated"/>
 								<option id="com.freescale.s32ds.cross.gnu.tool.c.linker.option.scriptfile.337306920" name="Script files (-T)" superClass="com.freescale.s32ds.cross.gnu.tool.c.linker.option.scriptfile" useByScannerDiscovery="false" valueType="stringList">

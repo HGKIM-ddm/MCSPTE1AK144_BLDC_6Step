@@ -1,4 +1,4 @@
--L"C:/NXP/AMMCLIB/S32K14x_AMMCLIB_v1.1.33/lib/s32ds_arm32"
+-L"C:/NXP/AMMCLIB/S32K14x_AMMCLIB_v1.1.34/lib/s32ds_arm32"
 -T
 "C:/NXP/MC_DevKits/MCSPTE1AK144/sw/MCSPTE1AK144_BLDC_6Step/Project_Settings/Linker_Files/S32K144_64_flash.ld"
 -Wl,-Map,"MCSPTE1AK144_BLDC_6Step.map"
