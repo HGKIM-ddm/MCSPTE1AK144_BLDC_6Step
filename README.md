@@ -1,3 +1,12 @@
+## System Architecture
+
+### State Machine Diagram
+![State Machine](./image/statemachine.png)
+
+### Control Flowchart
+![Flowchart](./image/flowchart.png)
+
+
 ## 💡 센서리스 BLDC 6-Step 제어 핵심 요약
 센서리스(Sensorless) 6-Step 제어는 모터 권선에 유도되는 **역기전력(BEMF)**을 이용해 로터의 위치를 파악하고, 이에 맞춰 3상(U, V, W)을 순차적으로 전환(Commutation)하는 방식입니다.
 
