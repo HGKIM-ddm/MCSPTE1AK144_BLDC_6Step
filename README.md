@@ -84,6 +84,7 @@ State Machine의 **빨간색 경로**에 해당하는 전역 감시 로직입니
 
 ## 🛠️ Development Environment
 * **MCU**: NXP S32K144
+* **Hardware**: NXP S32K144evb + linix 45zwn24-40 3 phase bldc motor
 * **IDE**: S32 Design Studio for ARM
 * **Driver**: NXP SDK (ADC, FTM, PDB, FreeMASTER)
 * **Tool**: FreeMASTER (Real-time Tuning & Monitoring)
